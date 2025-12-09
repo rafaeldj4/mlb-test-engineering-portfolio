@@ -1,0 +1,22 @@
+{
+  "name": "mlb-test-engineering-portfolio",
+  "version": "1.0.0",
+  "description": "Practical QA portfolio for MLB Technology Internship: test design, automation and quality practices using MLB.com as a real-world web application.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaeldj4/mlb-test-engineering-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaeldj4/mlb-test-engineering-portfolio/issues"
+  },
+  "homepage": "https://github.com/rafaeldj4/mlb-test-engineering-portfolio#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.2"
+  }
+}
