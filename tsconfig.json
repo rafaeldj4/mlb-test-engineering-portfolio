@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "strict": true,
+    "paths": {
+      "@pages/*": ["./tests/pages/*"],
+      "@utils/*": ["./tests/utils/*"],
+    }
+  },
+  "include": ["env.d.ts", "tests/**/*.ts", "src/**/*.ts", "playwright.config.ts"]
+}
