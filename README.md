@@ -1,15 +1,20 @@
 ﻿# mlb-test-engineering-portfolio
 
-Practical quality engineering portfolio for the MLB Technology Internship. This repo uses Playwright to automate end-to-end tests and now includes a curated MLB.com test plan to showcase QA skills.
+Practical quality engineering portfolio for the MLB Technology Internship. This repo uses Playwright for end-to-end tests and includes a curated MLB.com test plan to showcase QA skills.
 
 ## Repository Contents
-- `tests/example.spec.ts`: sample Playwright E2E suite (can be adapted from playwright.dev to mlb.com).
-- `test-plan/mlb-web-test-plan.md`: English test plan covering critical MLB.com flows (home/nav, scores, standings, schedule, teams, game detail, news, video, search) with manual vs. automation priorities.
-- `playwright.config.ts`: Playwright configuration (browsers, tracing, HTML reporter, timeouts).
-- `package.json` / `package-lock.json`: project dependencies (no npm scripts yet; use `npx playwright test`).
-- `playwright-report/`: generated HTML reports (after test runs).
-- `test-results/`: raw artifacts from Playwright test runs.
-- `.github/`: GitHub configuration (e.g., workflows) if present.
+- `tests/`
+  - `example.spec.ts`: sample Playwright E2E suite (playwright.dev target; retargetable to mlb.com).
+  - `sandbox.spec.ts`: login flow using env credentials and `LoginPage` page object.
+  - `contestbase.spec.ts`: uses `@pages/TestBase` fixture to inject `loginPage`.
+  - `pages/`: page objects and fixtures (`LoginPage.ts`, `TestBase.ts`).
+  - `e2e/`, `fixtures/`, `utils/`: scaffolding for future suites/helpers.
+- `test-plan/mlb-web-test-plan.md`: English test plan for MLB.com (home/nav, scores, standings, schedule, teams, game detail, news, video, search; manual vs automation priorities).
+- `playwright.config.ts`: configuration (parallelism, retries, tracing on first retry, Chromium desktop project, dotenv support).
+- `env.d.ts`: typed env vars (`TEST_URL`, `USER_NAME`, `USER_PASSWORD`, `GLOBAL_TIMEOUT`).
+- `package.json` / `package-lock.json`: dependencies (Playwright, TypeScript, dotenv). No npm scripts yet—use `npx`.
+- `playwright-report/`, `test-results/`: artifacts from Playwright runs.
+- `.github/`: GitHub configuration if present.
 
 ## Prerequisites
 - Node.js (LTS recommended)
@@ -27,6 +32,16 @@ npm install
 npx playwright install   # first time: downloads browsers
 ```
 
+## Environment Variables
+Create a `.env` file (or export variables) to drive the example/sandbox specs:
+```bash
+TEST_URL=https://example.com
+USER_NAME=your-user
+USER_PASSWORD=your-password
+GLOBAL_TIMEOUT=30000
+```
+`dotenv` is loaded in `playwright.config.ts`; types are declared in `env.d.ts`.
+
 ## Running Tests
 Run all tests (uses Playwright defaults, no npm scripts defined):
 ```bash
@@ -43,14 +58,18 @@ Open the HTML report (after a run):
 npx playwright show-report
 ```
 
+## Path Aliases and Fixtures
+- Path aliases (`tsconfig.json`): `@pages/*` → `tests/pages/*`, `@utils/*` → `tests/utils/*`.
+- `TestBase.ts` extends `@playwright/test` with a `loginPage` fixture for reuse across specs.
+
 ## Adapting Tests to MLB.com
-1) Replace target URLs in `tests/example.spec.ts` with `https://www.mlb.com/` and relevant subpages (scores, standings, schedule).
-2) Update selectors/assertions to use accessible roles/names for MLB.com navigation, cards, tabs, and search.
-3) Prioritize stable, deterministic flows for automation (navigation, presence of sections/tabs), and keep volatile data checks tolerant (validate structure/state, not exact scores).
-4) Use the test plan (`test-plan/mlb-web-test-plan.md`) as the source of truth for manual cases and automation candidates.
+1) Replace target URLs in specs with `https://www.mlb.com/` (scores, standings, schedule, game detail).
+2) Update selectors to use accessible roles/names for MLB.com navigation, cards, tabs, and search.
+3) Prefer assertions on structure/state over volatile data (e.g., verify presence of game cards, tabs, scoreline elements; avoid exact scores).
+4) Use `test-plan/mlb-web-test-plan.md` as the source of truth for manual cases and automation candidates.
 
 ## Suggested Next Steps
-- Add npm scripts (e.g., `"test": "playwright test"`, `"test:ui": "playwright test --ui"`).
-- Create additional spec files for MLB.com flows (scores, standings, schedule, game detail, search, video).
-- Enable CI (GitHub Actions) to run Playwright headless and publish `playwright-report/`.
-- Extend documentation with troubleshooting (auth, geo, flakiness) and environment notes.
+1) Add npm scripts (e.g., `"test": "playwright test"`, `"test:ui": "playwright test --ui"`).
+2) Add dedicated MLB.com spec files (scores, standings, schedule, game detail, search, video) following the test plan.
+3) Enable CI (GitHub Actions) to run Playwright headless and publish `playwright-report/`.
+4) Document troubleshooting (auth, geo restrictions, flakiness) and any test data assumptions.
