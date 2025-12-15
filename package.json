@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Practical QA portfolio for MLB Technology Internship: test design, automation and quality practices using MLB.com as a real-world web application.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test tests/e2e",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rafaeldj4/mlb-test-engineering-portfolio.git"
