@@ -1,15 +1,19 @@
-﻿# mlb-test-engineering-portfolio
+# mlb-test-engineering-portfolio
 
-Practical quality engineering portfolio for the MLB Technology Internship. This repo uses Playwright to automate end-to-end tests and now includes a curated MLB.com test plan to showcase QA skills.
+Practical quality engineering portfolio for the MLB Technology Internship. This repo uses Playwright for end-to-end tests and includes a curated MLB.com test plan to showcase QA skills.
 
 ## Repository Contents
-- `tests/example.spec.ts`: sample Playwright E2E suite (can be adapted from playwright.dev to mlb.com).
-- `test-plan/mlb-web-test-plan.md`: English test plan covering critical MLB.com flows (home/nav, scores, standings, schedule, teams, game detail, news, video, search) with manual vs. automation priorities.
-- `playwright.config.ts`: Playwright configuration (browsers, tracing, HTML reporter, timeouts).
-- `package.json` / `package-lock.json`: project dependencies (no npm scripts yet; use `npx playwright test`).
-- `playwright-report/`: generated HTML reports (after test runs).
-- `test-results/`: raw artifacts from Playwright test runs.
-- `.github/`: GitHub configuration (e.g., workflows) if present.
+- `tests/`
+  - `e2e/`: MLB.com E2E specs (`home.e2e.spec.ts`, `scores-schedule.e2e.spec.ts`, `stats.e2e.spec.ts`, `standings.e2e.spec.ts`, `teams.e2e.spec.ts`).
+  - `pages/`: page objects for MLB.com sections (`mlbHomePage.ts`, `mlbScoresPage.ts`, `mlbSchedulePage.ts`, `mlbStatsPage.ts`, `mlbStandingsPage.ts`, `mlbTeamsPage.ts`).
+  - `fixtures/`, `utils/`: currently empty scaffolding for future helpers.
+  - `test-base.ts`: shared Playwright fixtures for MLB page objects.
+- `docs/`: test plans and automation context.
+- `playwright.config.ts`: Playwright project config (timeout 120s, tracing on first retry, dotenv load).
+- `.env`, `.env.example`: intentionally empty placeholders.
+- `package.json` / `package-lock.json`: dependencies (Playwright, TypeScript, dotenv) and npm scripts (`test`, `test:e2e`, `test:ui`, `report`).
+- `playwright-report/`, `test-results/`: artifacts from recent runs.
+- `.github/`: GitHub configuration (if present).
 
 ## Prerequisites
 - Node.js (LTS recommended)
@@ -27,30 +31,33 @@ npm install
 npx playwright install   # first time: downloads browsers
 ```
 
+```
+`dotenv` is loaded in `playwright.config.ts`; types are declared in `env.d.ts`.
+
 ## Running Tests
-Run all tests (uses Playwright defaults, no npm scripts defined):
+Run all tests:
 ```bash
-npx playwright test
+npm run test
 ```
 
 Run a specific file:
 ```bash
-npx playwright test tests/example.spec.ts
+npm run test tests/example.spec.ts
 ```
+
+Notes on skipped specs:
+- `tests/e2e/home.e2e.spec.ts`: `Global navigation` is skipped in the full suite due to slow cross-site navigation; un-skip and run individually if network conditions allow.
+- `tests/e2e/teams.e2e.spec.ts`: suite is skipped in the full run to avoid fixture conflicts; un-skip and run file-scoped if you need to validate teams navigation.
 
 Open the HTML report (after a run):
 ```bash
 npx playwright show-report
 ```
 
-## Adapting Tests to MLB.com
-1) Replace target URLs in `tests/example.spec.ts` with `https://www.mlb.com/` and relevant subpages (scores, standings, schedule).
-2) Update selectors/assertions to use accessible roles/names for MLB.com navigation, cards, tabs, and search.
-3) Prioritize stable, deterministic flows for automation (navigation, presence of sections/tabs), and keep volatile data checks tolerant (validate structure/state, not exact scores).
-4) Use the test plan (`test-plan/mlb-web-test-plan.md`) as the source of truth for manual cases and automation candidates.
+## Path Aliases and Fixtures
+- Path aliases (`tsconfig.json`): `@pages/*` ? `tests/pages/*`, `@utils/*` ? `tests/utils/*`.
+- `test-base.ts` extends `@playwright/test` with a `loginPage` fixture for reuse across specs.
 
-## Suggested Next Steps
-- Add npm scripts (e.g., `"test": "playwright test"`, `"test:ui": "playwright test --ui"`).
-- Create additional spec files for MLB.com flows (scores, standings, schedule, game detail, search, video).
-- Enable CI (GitHub Actions) to run Playwright headless and publish `playwright-report/`.
-- Extend documentation with troubleshooting (auth, geo, flakiness) and environment notes.
+
+
+
