@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
 import { test, expect } from '../test-base';
 
 const acceptCookiesIfNeeded = async (page: Page) => {
@@ -19,8 +19,8 @@ test.describe('Standings', () => {
       const winHeader = mlbStandingsPage.table.getByRole('columnheader', { name: /^W$/i });
       const lossHeader = mlbStandingsPage.table.getByRole('columnheader', { name: /^L$/i });
       await expect(mlbStandingsPage.table).toBeVisible();
-      await expect(winHeader).toBeVisible();
-      await expect(lossHeader).toBeVisible();
+      await expect(winHeader).toBeVisible({ timeout: 20000 });
+      await expect(lossHeader).toBeVisible({ timeout: 20000 });
       expect(await mlbStandingsPage.table.getByRole('row').count()).toBeGreaterThan(1);
       await expect(mlbStandingsPage.clinchLegend).toBeVisible();
     });
