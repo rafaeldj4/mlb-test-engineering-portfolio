@@ -14,7 +14,7 @@ Infrastructure and structure
   - tests/pages/mlbStandingsPage.ts: division sections (AL/NL), team rows, W/L columns, team link navigation helper.
   - tests/pages/mlbStatsPage.ts: filter controls (e.g., hitting/pitching, season), stats table rows/columns.
   - tests/pages/mlbTeamsPage.ts: teams menu trigger, list by league/division, team page header and identity.
-- Suggested test files: tests/home.e2e.spec.ts, tests/scores-schedule.e2e.spec.ts, tests/standings.e2e.spec.ts, tests/stats-players.e2e.spec.ts, tests/teams.e2e.spec.ts.
+- Suggested test files: tests/e2e/home.e2e.spec.ts, tests/e2e/scores-schedule.e2e.spec.ts, tests/e2e/standings.e2e.spec.ts, tests/e2e/stats.e2e.spec.ts, tests/e2e/teams.e2e.spec.ts.
 - Test data: known player name (e.g., "Shohei Ohtani"), sample teams ("New York Yankees", "Los Angeles Dodgers").
 
 Automated flows (E2E)

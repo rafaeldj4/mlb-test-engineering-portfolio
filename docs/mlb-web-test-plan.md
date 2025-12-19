@@ -1,6 +1,6 @@
 ﻿# MLB.com Test Plan – Portfolio (MLB Technology Internship)
 
-Author: Rafael Mejía  
+Author: Rafael Mejia  
 Target Role: Technology Summer Internship – MLB (New York)  
 System Under Test (SUT): [https://www.mlb.com/en](https://www.mlb.com/en)
 
@@ -61,15 +61,6 @@ This plan is intentionally compact, but rich enough to reflect the mindset of a 
   - Smoke and basic regression on the most critical flows
   - Page Object pattern to keep tests readable and maintainable
   - Execution via CLI / CI (e.g., GitHub Actions)
-
-### 3.2 Non-Functional (Light Checks)
-
-- **Basic Responsive Checks**
-  - Visual validation of selected flows on desktop and mobile viewports
-
-- **Light Accessibility Checks**
-  - Verify roles/landmarks on key sections
-  - Check that important links and buttons expose meaningful text
 
 ---
 
@@ -231,22 +222,7 @@ Confirm that fans can quickly access basic information about a team from the Tea
 
 ---
 
-## 7. Non-Functional (Light Checks)
-
-**Responsive**
-
-- Test Home, Scores and Standings in desktop and mobile viewports:
-  - Layout doesn’t visually break
-  - Main navigation remains accessible (e.g., hamburger menu on mobile, if applicable)
-
-**Accessibility (light)**
-
-- Confirm presence of key landmarks (`navigation`, `main`) where applicable  
-- Ensure important links and buttons have visible text or meaningful aria-labels
-
----
-
-## 8. How This Supports the Portfolio
+## 7. How This Supports the Portfolio
 
 This test plan is designed to be paired with:
 
