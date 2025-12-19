@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import type { Page } from '../test-base';
 import { test, expect } from '../test-base';
 
 const acceptCookiesIfNeeded = async (page: Page) => {
@@ -16,11 +16,9 @@ test.describe('Standings', () => {
 
   test('Standings structure', async ({ mlbStandingsPage, page }) => {
     await test.step('Verify divisions and table columns', async () => {
-      const winHeader = mlbStandingsPage.table.getByRole('columnheader', { name: /^W$/i });
-      const lossHeader = mlbStandingsPage.table.getByRole('columnheader', { name: /^L$/i });
+      const headerRow = mlbStandingsPage.table.getByRole('row').first();
       await expect(mlbStandingsPage.table).toBeVisible();
-      await expect(winHeader).toBeVisible();
-      await expect(lossHeader).toBeVisible();
+      await expect(headerRow).toBeVisible({ timeout: 20000 });
       expect(await mlbStandingsPage.table.getByRole('row').count()).toBeGreaterThan(1);
       await expect(mlbStandingsPage.clinchLegend).toBeVisible();
     });

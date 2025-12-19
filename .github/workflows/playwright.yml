@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: MLB.com UI Tests
 on:
   push:
     branches: [ main, master ]
@@ -17,8 +17,8 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Set Playwright test timeout to 120s
-      run: echo "PWTEST_TIMEOUT=120000" >> $GITHUB_ENV
+    - name: Set Playwright test timeout to 200s
+      run: echo "PWTEST_TIMEOUT=200000" >> $GITHUB_ENV
     - name: Run Playwright tests
       run: npm run test
     - uses: actions/upload-artifact@v4

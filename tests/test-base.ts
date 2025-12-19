@@ -36,10 +36,5 @@ const test = base.extend<MlbFixtures>({
   },
 });
 
-test.use({
-  baseURL: 'https://www.mlb.com/en',
-  screenshot: 'only-on-failure',
-  trace: 'on-first-retry',
-});
-
+export type { Page } from '@playwright/test';
 export { test, expect };
