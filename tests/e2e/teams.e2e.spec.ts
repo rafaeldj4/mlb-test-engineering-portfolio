@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { Page } from '../test-base';
 import { test, expect } from '../test-base';
 
 const acceptCookiesIfNeeded = async (page: Page) => {

@@ -9,8 +9,8 @@ Practical quality engineering portfolio for the MLB Technology Internship. This 
   - `fixtures/`, `utils/`: currently empty scaffolding for future helpers.
   - `test-base.ts`: shared Playwright fixtures for MLB page objects.
 - `docs/`: test plans and automation context.
-- `playwright.config.ts`: Playwright project config (timeout 200s, HTML reporter, Chromium project enabled, tracing on first retry, dotenv load). The timeout is higher because MLB.com loads heavy data and tests were failing with default waits.
-- `test-base.ts`: shared config (baseURL `https://www.mlb.com/en`, screenshot on failure, trace on first retry) and fixtures for all page objects.
+- `playwright.config.ts`: Playwright project config (timeout 200s, HTML reporter, Chromium project enabled, baseURL, screenshots on failure, trace on first retry, dotenv load). The timeout is higher because MLB.com loads heavy data and tests were failing with default waits.
+- `test-base.ts`: shared fixtures for all page objects.
 - `.env`, `.env.example`: intentionally empty placeholders (env is loaded but not required for default runs).
 - `package.json` / `package-lock.json`: dependencies (Playwright, TypeScript, dotenv) and npm scripts (`test`, `test:e2e`, `test:ui`, `report`).
 - `playwright-report/`, `test-results/`: artifacts from recent runs.
